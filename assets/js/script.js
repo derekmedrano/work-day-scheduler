@@ -3,10 +3,22 @@
 // in the html.
 var currentDayEl = $('#currentDay');
 
-// var today = dayjs();
-// var todayFormat = today.format('YYYY-MM-DD');
+var today = dayjs();
+var todayFormat = today.format('YYYY-MM-DD');
 
-currentDayEl.text(dayjs());
+var totalHours = 9;
+
+// Displays current time in heading
+currentDayEl.text(today);
+
+  for (var i = 0; i < totalHours; i++){
+  
+  }
+
+
+
+
+
 
 
 $(function () {
