@@ -1,19 +1,60 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+
 var currentDayEl = $('#currentDay');
 
 var today = dayjs();
 var todayFormat = today.format('YYYY-MM-DD');
-
-var totalHours = 9;
+var currentHour = dayjs().hour();
+var hours = ['9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM']
 
 // Displays current time in heading
 currentDayEl.text(today);
 
-  for (var i = 0; i < totalHours; i++){
+
+//loop creates a column 9 times (9 derived from average work day; 9am-5pm = 9 hours)
+  for (var i = 0; i < hours.length; i++){
+    console.log(currentHour)
+    var block = $('<div></div>');
+    block.attr('id', 'hour-' + (i + 9));
+    block.attr('class', 'row time-block');
+
+    var time = $('<div></div>');
+    time.text(hours[i]);
+    time.attr('class', 'col-2 col-md-1 hour text-center py-3');
+
+    var input = $('<textarea></textarea>');
+    input.attr('class', 'col-8 col-md-10 description past');
+
+    if (i + 9 < currentHour) {
+      input.attr('class', 'col-8 col-md-10 description past');
+    }
+
+    if (i + 9 === currentHour) {
+      input.attr('class', 'col-8 col-md-10 description present');
+    }
+
+    if (i + 9 > currentHour) {
+      input.attr('class', 'col-8 col-md-10 description future');
+    }
+
   
+
+    var saveBtn = $('<button></button>');
+    saveBtn.attr('class', 'btn saveBtn col-2 col-md-1');
+
+    var saveIcon = $('<i></i>');
+    saveIcon.attr('class', 'fas fa-save');
+
+
+    saveBtn.append(saveIcon);
+
+    block.append(time);
+    block.append(input);
+    block.append(saveBtn);
+  
+    $('#main').append(block);
+
   }
+
 
 
 
@@ -34,7 +75,7 @@ $(function () {
 
     // TODO: Add code to apply the past, present, or future class to each time
     // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
+    // attribute of each time-block be used to conditionally add or remove the 
     // past, present, and future classes? How can Day.js be used to get the
     // current hour in 24-hour time?
     //
